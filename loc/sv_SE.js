@@ -9,12 +9,12 @@ module.exports = {
   },
   wallets: {
     select_wallet: 'Välj plånbok',
-    options: 'inställningar',
+    options: 'Inställningar',
     createBitcoinWallet:
       'Du har ännu ingen Bitcoinplånbok. För att kunna sätta in pengar i en Lightningplånbok behöver en Bitcoinplånbok skapas eller importeras. Vill du fortsätta ändå?',
     list: {
       app_name: 'BlueWallet',
-      title: 'plånböcker',
+      title: 'Plånböcker',
       header: 'En plånbok representerar ett par av en privat nyckel samt en adress' + 'som du kan dela med andra för att ta emot coins',
       add: 'Ny Plånbok',
       create_a_wallet: 'Ny plånbok',
@@ -32,20 +32,20 @@ module.exports = {
       title: 'Sortera plånböcker',
     },
     add: {
-      title: 'ny plånbok',
+      title: 'Ny plånbok',
       description:
         'Du kan antingen skanna in en backup (i WIF - Wallet Import Format) eller skapa en ny plånbok. Segwit-plånböcker stöds som standard.',
       scan: 'Skanna',
       create: 'Skapa',
       label_new_segwit: 'Ny SegWit',
       label_new_lightning: 'Ny Lightning',
-      wallet_name: 'namn',
-      wallet_type: 'typ',
+      wallet_name: 'Namn',
+      wallet_type: 'Typ',
       or: 'eller',
       import_wallet: 'Importera plånbok',
       imported: 'Importerad',
       coming_soon: 'Kommer snart',
-      lightning: 'Lightning',
+      lightning: 'Lightning\n(via 3:e part)',
       bitcoin: 'Bitcoin',
     },
     details: {
@@ -72,7 +72,7 @@ module.exports = {
       copiedToClipboard: 'Kopierad till urklipp',
     },
     import: {
-      title: 'import',
+      title: 'Import',
       explanation:
         'Skriv in dina ord, din privata nyckel, WIF, eller vad du kan tänkas ha. BlueWallet kommer att göra sitt bästa för att gissa formatet och importera plånboken',
       imported: 'Importerad',
@@ -100,7 +100,7 @@ module.exports = {
   transactions: {
     list: {
       tabBarLabel: 'Transaktioner',
-      title: 'transaktioner',
+      title: 'Transaktioner',
       description: 'Lista över dina plånböckers inkommande och utgående transaktioner',
       conf: 'konf',
     },
@@ -172,7 +172,7 @@ module.exports = {
     copied: 'Kopierad till urklipp!',
   },
   settings: {
-    header: 'inställningar',
+    header: 'Inställningar',
     plausible_deniability: 'Trovärdigt förnekande...',
     storage_not_encrypted: 'Lagring: ej krypterad',
     storage_encrypted: 'Lagring: krypterad',
