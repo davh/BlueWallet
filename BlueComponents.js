@@ -43,6 +43,9 @@ if (aspectRatio > 1.6) {
   isIpad = true;
 }
 
+const defaultTextFont = 'Futura PT Web Book';
+const defaultHeaderFont = 'Futura PT Web Bold';
+
 export class BlueButton extends Component {
   render() {
     let backgroundColor = this.props.backgroundColor ? this.props.backgroundColor : BlueApp.settings.buttonBackgroundColor;
@@ -74,7 +77,7 @@ export class BlueButton extends Component {
       >
         <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
           {this.props.icon && <Icon name={this.props.icon.name} type={this.props.icon.type} color={this.props.icon.color} />}
-          {this.props.title && <Text style={{ marginHorizontal: 8, fontSize: 16, color: fontColor }}>{this.props.title}</Text>}
+          {this.props.title && <Text style={{ marginHorizontal: 8, fontSize: 16, color: fontColor, fontFamily: defaultTextFont }}>{this.props.title}</Text>}
         </View>
       </TouchableOpacity>
     );
@@ -192,9 +195,10 @@ export const BlueNavigationStyle = (navigation, withNavigationCloseButton = fals
     backgroundColor: BlueApp.settings.brandingColor,
     borderBottomWidth: 0,
     elevation: 0,
+    fontFamily: defaultHeaderFont,
   },
   headerTitleStyle: {
-    fontWeight: '600',
+    fontFamily: defaultHeaderFont,
     color: BlueApp.settings.foregroundColor,
   },
   headerTintColor: BlueApp.settings.foregroundColor,
@@ -298,9 +302,9 @@ export class BlueText extends Component {
       <Text
         style={{
           color: BlueApp.settings.foregroundColor,
-
           // eslint-disable-next-line
           ...this.props.style,
+          fontFamily: defaultTextFont,
         }}
         {...this.props}
       />
@@ -318,6 +322,7 @@ export class BlueListItem extends Component {
     return (
       <ListItem
         bottomDivider
+        fontFamily={defaultTextFont}
         containerStyle={{
           backgroundColor: 'transparent',
           borderBottomStartRadius: 20,
@@ -327,7 +332,6 @@ export class BlueListItem extends Component {
         titleStyle={{
           color: BlueApp.settings.foregroundColor,
           fontSize: 16,
-          fontWeight: '500',
         }}
         subtitleStyle={{ color: BlueApp.settings.alternativeTextColor }}
         subtitleNumberOfLines={1}
