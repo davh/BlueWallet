@@ -921,7 +921,7 @@ export class BlueReceiveButtonIcon extends Component {
               style={{
                 color: BlueApp.settings.buttonAlternativeTextColor,
                 fontSize: (isIpad && 10) || 16,
-                fontWeight: '500',
+                fontFamily: defaultHeaderFont,
                 left: 5,
                 backgroundColor: 'transparent',
               }}
@@ -964,7 +964,7 @@ export class BlueSendButtonIcon extends Component {
               style={{
                 color: BlueApp.settings.buttonAlternativeTextColor,
                 fontSize: (isIpad && 10) || 16,
-                fontWeight: '500',
+                fontFamily: defaultHeaderFont,
                 backgroundColor: 'transparent',
               }}
             >
@@ -1570,6 +1570,7 @@ export class WalletsCarousel extends Component {
               numberOfLines={1}
               style={{
                 backgroundColor: 'transparent',
+                fontFamily: defaultTextFont,
                 fontSize: 19,
                 color: BlueApp.settings.inverseForegroundColor,
               }}
@@ -1581,7 +1582,7 @@ export class WalletsCarousel extends Component {
               adjustsFontSizeToFit
               style={{
                 backgroundColor: 'transparent',
-                fontWeight: 'bold',
+                fontFamily: defaultHeaderFont,
                 fontSize: 36,
                 color: BlueApp.settings.inverseForegroundColor,
               }}
@@ -1593,6 +1594,7 @@ export class WalletsCarousel extends Component {
               numberOfLines={1}
               style={{
                 backgroundColor: 'transparent',
+                fontFamily: defaultTextFont,
                 fontSize: 13,
                 color: BlueApp.settings.inverseForegroundColor,
               }}
@@ -1603,7 +1605,7 @@ export class WalletsCarousel extends Component {
               numberOfLines={1}
               style={{
                 backgroundColor: 'transparent',
-                fontWeight: 'bold',
+                fontFamily: defaultHeaderFont,
                 fontSize: 16,
                 color: BlueApp.settings.inverseForegroundColor,
               }}
