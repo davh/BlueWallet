@@ -3,6 +3,7 @@ import { BitcoinUnit, Chain } from '../models/bitcoinUnits';
 export class AbstractWallet {
   static type = 'abstract';
   static typeReadable = 'abstract';
+  static network = 'abstract';
 
   static fromJson(obj) {
     let obj2 = JSON.parse(obj);
@@ -17,6 +18,7 @@ export class AbstractWallet {
   constructor() {
     this.type = this.constructor.type;
     this.typeReadable = this.constructor.typeReadable;
+    this.network = this.constructor.network;
     this.label = '';
     this.secret = ''; // private key or recovery phrase
     this.balance = 0;

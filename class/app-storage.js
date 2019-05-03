@@ -9,6 +9,7 @@ import {
   SegwitBech32Wallet,
 } from './';
 import { LightningCustodianWallet } from './lightning-custodian-wallet';
+import { TestnetWallet } from './testnet-wallet';
 let encryption = require('../encryption');
 
 export class AppStorage {
@@ -187,6 +188,9 @@ export class AppStorage {
                 unserializedWallet.setBaseURI(LightningCustodianWallet.defaultBaseUri);
               }
               unserializedWallet.init();
+              break;
+            case TestnetWallet.type:
+              unserializedWallet = TestnetWallet.fromJson(key);
               break;
             case LegacyWallet.type:
             default:

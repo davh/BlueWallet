@@ -242,11 +242,11 @@ exports.WIF2segwitAddress = function(WIF) {
   return bitcoinjs.address.fromOutputScript(scriptPubKey);
 };
 
-exports.createTransaction = function(utxos, toAddress, _amount, _fixedFee, WIF, fromAddress) {
+exports.createTransaction = function(utxos, toAddress, _amount, _fixedFee, WIF, fromAddress, network) {
   let fixedFee = toSatoshi(_fixedFee);
   let amountToOutput = toSatoshi(_amount - _fixedFee);
-  let pk = bitcoinjs.ECPair.fromWIF(WIF); // eslint-disable-line new-cap
-  let txb = new bitcoinjs.TransactionBuilder();
+  let pk = bitcoinjs.ECPair.fromWIF(WIF, network); // eslint-disable-line new-cap
+  let txb = new bitcoinjs.TransactionBuilder(network);
   let unspentAmount = 0;
   for (const unspent of utxos) {
     if (unspent.confirmations < 2) {

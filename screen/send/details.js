@@ -336,7 +336,10 @@ export default class SendDetails extends Component {
 
     if (!error) {
       try {
-        bitcoin.address.toOutputScript(this.state.address);
+        var network = this.state.fromWallet.network === 'testnet3'
+          ? bitcoin.networks.testnet
+          : bitcoin.networks.bitcoin;
+        bitcoin.address.toOutputScript(this.state.address, network);
       } catch (err) {
         console.log('validation error');
         console.log(err);
