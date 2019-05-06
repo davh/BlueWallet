@@ -1,10 +1,10 @@
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 const ElectrumClient = require('electrum-client');
 let bitcoin = require('bitcoinjs-lib');
 let reverse = require('buffer-reverse');
 
 const storageKey = 'ELECTRUM_PEERS';
-const defaultPeer = { host: 'electrum1.bluewallet.io', tcp: 50001 };
+const defaultPeer = { host: 'electrum1.bluewallet.io', tcp: '50001' };
 const hardcodedPeers = [
   // { host: 'noveltybobble.coinjoined.com', tcp: '50001' }, // down
   // { host: 'electrum.be', tcp: '50001' },
@@ -20,7 +20,6 @@ const hardcodedPeers = [
   { host: 'electrum3.bluewallet.io', tcp: '50001' },
   { host: 'electrum3.bluewallet.io', tcp: '50001' }, // 2x weight
   { host: 'electrum.coinop.cc', tcp: '50001' },
-  { host: 'electrum-server.ninja', tcp: '50001' },
 ];
 
 let mainClient = false;
@@ -170,8 +169,8 @@ async function waitTillConnected() {
 async function estimateFees() {
   if (!mainClient) throw new Error('Electrum client is not connected');
   const fast = await mainClient.blockchainEstimatefee(1);
-  const medium = await mainClient.blockchainEstimatefee(6);
-  const slow = await mainClient.blockchainEstimatefee(12);
+  const medium = await mainClient.blockchainEstimatefee(5);
+  const slow = await mainClient.blockchainEstimatefee(10);
   return { fast, medium, slow };
 }
 
