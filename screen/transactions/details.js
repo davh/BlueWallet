@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, ScrollView, TouchableOpacity, Linking } from 'react-native';
+import { View, ScrollView, TouchableOpacity, Linking, Text } from 'react-native';
 import {
   BlueButton,
   SafeBlueArea,
@@ -10,6 +10,7 @@ import {
   BlueSpacing20,
   BlueCopyToClipboardButton,
   BlueNavigationStyle,
+  BlueButtonLink,
 } from '../../BlueComponents';
 import PropTypes from 'prop-types';
 /** @type {AppStorage} */
@@ -111,9 +112,13 @@ export default class TransactionsDetails extends Component {
             {(() => {
               if (BlueApp.tx_metadata[this.state.tx.hash]) {
                 if (BlueApp.tx_metadata[this.state.tx.hash]['memo']) {
+                  var orderId = BlueApp.tx_metadata[this.state.tx.hash]['orderId'];
                   return (
                     <View>
                       <BlueText h4>{BlueApp.tx_metadata[this.state.tx.hash]['memo']}</BlueText>
+                      {orderId !== undefined && (
+                          <Text style={{ color: '#2f5fb3' }} onPress={() => this.props.navigation.navigate('OrderDetails', { url: 'https://s4f3.io/order?id=' + orderId })}>Visa orderdetaljer</Text>
+                      )}
                       <BlueSpacing20 />
                     </View>
                   );
