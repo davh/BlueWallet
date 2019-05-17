@@ -1042,7 +1042,7 @@ export class NewWalletPanel extends Component {
           colors={WalletGradient.createWallet}
           style={{
             padding: 15,
-            borderRadius: 10,
+            borderRadius: 20,
             minHeight: 164,
             justifyContent: 'center',
             alignItems: 'center',
@@ -1527,7 +1527,7 @@ export class WalletsCarousel extends Component {
             colors={WalletGradient.gradientsFor(item.type)}
             style={{
               padding: 15,
-              borderRadius: 10,
+              borderRadius: 20,
               minHeight: 164,
               elevation: 5,
             }}
