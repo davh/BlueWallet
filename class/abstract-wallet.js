@@ -44,6 +44,10 @@ export class AbstractWallet {
     return this.label;
   }
 
+  /**
+   *
+   * @returns {number} Available to spend amount, int, in sats
+   */
   getBalance() {
     return this.balance;
   }

@@ -7,6 +7,7 @@ import {
   LegacyWallet,
   SegwitP2SHWallet,
   SegwitBech32Wallet,
+  HDSegwitBech32Wallet,
 } from './';
 import { LightningCustodianWallet } from './lightning-custodian-wallet';
 import { TestnetWallet } from './testnet-wallet';
@@ -19,6 +20,7 @@ export class AppStorage {
   static EXCHANGE_RATES = 'currency';
   static LNDHUB = 'lndhub';
   static PREFERRED_CURRENCY = 'preferredCurrency';
+  static ADVANCED_MODE_ENABLED = 'advancedmodeenabled';
 
   constructor() {
     /** {Array.<AbstractWallet>} */
@@ -46,11 +48,14 @@ export class AppStorage {
       failedColor: '#ff0000',
       shadowColor: '#000000',
       inverseForegroundColor: '#ffffff',
+      hdborderColor: '#68BBE1',
+      hdbackgroundColor: '#ECF9FF',
+      lnborderColor: '#F7C056',
+      lnbackgroundColor: '#FFFAEF',
     };
   }
 
   async storageIsEncrypted() {
-    // await AsyncStorage.clear();
     let data;
     try {
       data = await AsyncStorage.getItem(AppStorage.FLAG_ENCRYPTED);
@@ -159,12 +164,16 @@ export class AppStorage {
               break;
             case WatchOnlyWallet.type:
               unserializedWallet = WatchOnlyWallet.fromJson(key);
+              unserializedWallet.init();
               break;
             case HDLegacyP2PKHWallet.type:
               unserializedWallet = HDLegacyP2PKHWallet.fromJson(key);
               break;
             case HDSegwitP2SHWallet.type:
               unserializedWallet = HDSegwitP2SHWallet.fromJson(key);
+              break;
+            case HDSegwitBech32Wallet.type:
+              unserializedWallet = HDSegwitBech32Wallet.fromJson(key);
               break;
             case HDLegacyBreadwalletWallet.type:
               unserializedWallet = HDLegacyBreadwalletWallet.fromJson(key);
@@ -212,6 +221,7 @@ export class AppStorage {
         return false; // failed loading data or loading/decryptin data
       }
     } catch (error) {
+      console.warn(error.message);
       return false;
     }
   }
@@ -248,6 +258,7 @@ export class AppStorage {
     let walletsToSave = [];
     for (let key of this.wallets) {
       if (typeof key === 'boolean') continue;
+      if (key.prepareForSerialization) key.prepareForSerialization();
       walletsToSave.push(JSON.stringify({ ...key, type: key.type }));
     }
 
