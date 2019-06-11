@@ -11,7 +11,7 @@ import {
 } from './';
 import { LightningCustodianWallet } from './lightning-custodian-wallet';
 import { TestnetWallet } from './testnet-wallet';
-import WatchConnectivity from '../WatchConnectivity';
+// import WatchConnectivity from '../WatchConnectivity';
 const encryption = require('../encryption');
 
 export class AppStorage {
@@ -214,8 +214,8 @@ export class AppStorage {
             this.tx_metadata = data.tx_metadata;
           }
         }
-        WatchConnectivity.init();
-        await WatchConnectivity.shared.sendWalletsToWatch();
+        // WatchConnectivity.init();
+        // await WatchConnectivity.shared.sendWalletsToWatch();
         return true;
       } else {
         return false; // failed loading data or loading/decryptin data
@@ -288,8 +288,8 @@ export class AppStorage {
     } else {
       await AsyncStorage.setItem(AppStorage.FLAG_ENCRYPTED, ''); // drop the flag
     }
-    WatchConnectivity.init();
-    WatchConnectivity.shared.sendWalletsToWatch();
+    // WatchConnectivity.init();
+    // WatchConnectivity.shared.sendWalletsToWatch();
     return AsyncStorage.setItem('data', JSON.stringify(data));
   }
 
