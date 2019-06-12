@@ -1,9 +1,9 @@
 /* global it, describe, jasmine, afterAll, beforeAll */
-import { HDSegwitBech32Wallet } from './class';
+import { HDSegwitBech32Wallet } from '../../class';
 global.crypto = require('crypto'); // shall be used by tests under nodejs CLI, but not in RN environment
 let assert = require('assert');
 global.net = require('net'); // needed by Electrum client. For RN it is proviced in shim.js
-let BlueElectrum = require('./BlueElectrum'); // so it connects ASAP
+let BlueElectrum = require('../../BlueElectrum'); // so it connects ASAP
 
 afterAll(async () => {
   // after all tests we close socket so the test suite can actually terminate
@@ -203,7 +203,7 @@ describe('Bech32 Segwit HD (BIP84)', () => {
     assert.strictEqual(hd.getTransactions().length, oldTransactions.length);
   });
 
-  it('can create transactions', async () => {
+  it('can fetchBalance, fetchTransactions, fetchUtxo and create transactions', async () => {
     if (!process.env.HD_MNEMONIC_BIP84) {
       console.error('process.env.HD_MNEMONIC_BIP84 not set, skipped');
       return;
@@ -223,18 +223,42 @@ describe('Bech32 Segwit HD (BIP84)', () => {
     end = +new Date();
     end - start > 15000 && console.warn('fetchTransactions took', (end - start) / 1000, 'sec');
 
+    start = +new Date();
+    await hd.fetchBalance();
+    end = +new Date();
+    end - start > 2000 && console.warn('warm fetchBalance took', (end - start) / 1000, 'sec');
+
+    global.debug = true;
+    start = +new Date();
+    await hd.fetchTransactions();
+    end = +new Date();
+    end - start > 2000 && console.warn('warm fetchTransactions took', (end - start) / 1000, 'sec');
+
     let txFound = 0;
     for (let tx of hd.getTransactions()) {
       if (tx.hash === 'e9ef58baf4cff3ad55913a360c2fa1fd124309c59dcd720cdb172ce46582097b') {
         assert.strictEqual(tx.value, -129545);
+        assert.strictEqual(tx.inputs[0].addresses[0], 'bc1qffcl35r05wyf06meu3dalfevawx559n0ufrxcw');
+        assert.strictEqual(tx.inputs[1].addresses[0], 'bc1qtvh8mjcfdg9224nx4wu3sw7fmmtmy2k3jhdeul');
+        assert.strictEqual(tx.inputs[2].addresses[0], 'bc1qhe03zgvq4fmfw8l2qq2zu4dxyhgyukcz6k2a5w');
         txFound++;
       }
       if (tx.hash === 'e112771fd43962abfe4e4623bf788d6d95ff1bd0f9b56a6a41fb9ed4dacc75f1') {
         assert.strictEqual(tx.value, 1000000);
+        assert.strictEqual(tx.inputs[0].addresses[0], '3NLnALo49CFEF4tCRhCvz45ySSfz3UktZC');
+        assert.strictEqual(tx.inputs[1].addresses[0], '3NLnALo49CFEF4tCRhCvz45ySSfz3UktZC');
+        txFound++;
+      }
+      if (tx.hash === 'c94bdec21c72d3441245caa164b00315b131f6b72513369f4be1b00b9fb99cc5') {
+        assert.strictEqual(tx.inputs[0].addresses[0], '16Nf5X77RbFz9Mb6t2GFqxs3twQN1joBkD');
+        txFound++;
+      }
+      if (tx.hash === '51fc225ddf24f7e124f034637f46442645ca7ea2c442b28124d4bcdd04e30195') {
+        assert.strictEqual(tx.inputs[0].addresses[0], '3NLnALo49CFEF4tCRhCvz45ySSfz3UktZC');
         txFound++;
       }
     }
-    assert.ok(txFound === 2);
+    assert.strictEqual(txFound, 4);
 
     await hd.fetchUtxo();
     let changeAddress = await hd.getChangeAddressAsync();
